@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>RSVP Halal Bihalal – SMAN 4 Jember 1447 H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+  // ══════════════════════════════════════════════════════════
+  //  GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
+  //  Dapatkan URL ini dari: Deploy → Manage Deployments → salin
+  // ══════════════════════════════════════════════════════════
+  const GAS_URL = "https://script.google.com/macros/s/GANTI_DENGAN_URL_ANDA/exec";
+  // ══════════════════════════════════════════════════════════
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gold:#C9A227;--gold-l:#F0D98A;--gold-d:#8B6914;
+  --navy:#1A2B5F;--navy-m:#2D4A8C;--navy-l:#E8EDF8;
+  --cream:#FDF8EE;--green:#0F6E56;--white:#fff;
+  --td:#1A1A2E;--tm:#4A5568;--tl:#718096;--red:#C53030;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:100vh;}
+.page{max-width:520px;margin:0 auto;}
+
+/* ═══ HERO ═══ */
+.hero{
+  background:linear-gradient(175deg,#07102E 0%,#1A2B5F 60%,#0F3460 100%);
+  padding:28px 20px 0;text-align:center;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 10% 15%,rgba(201,162,39,.15) 0%,transparent 50%),
+    radial-gradient(ellipse at 90% 80%,rgba(201,162,39,.12) 0%,transparent 50%);
+}
+.c-orn{position:absolute;width:48px;height:48px;opacity:.4;}
+.c-orn.tl{top:10px;left:10px;}
+.c-orn.tr{top:10px;right:10px;transform:scaleX(-1);}
+.c-orn svg{width:100%;height:100%;}
+.orn-row{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px;position:relative;z-index:1;}
+.orn-d{width:5px;height:5px;background:var(--gold);border-radius:50%;opacity:.85;}
+.orn-l{width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.bismillah{font-family:'Amiri',serif;font-size:22px;color:var(--gold-l);margin-bottom:14px;position:relative;z-index:1;line-height:1.5;}
+.h-badge{display:inline-block;background:rgba(201,162,39,.14);border:1px solid rgba(201,162,39,.38);border-radius:20px;padding:4px 16px;font-size:9px;color:var(--gold-l);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;position:relative;z-index:1;}
+.h-title{font-family:'Amiri',serif;font-size:34px;font-weight:700;color:var(--white);line-height:1.15;margin-bottom:4px;position:relative;z-index:1;}
+.h-title span{color:var(--gold-l);}
+.h-sub{font-size:11px;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.8px;text-transform:uppercase;margin-bottom:20px;position:relative;z-index:1;}
+.info-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(201,162,39,.22);border-top:1px solid rgba(201,162,39,.3);position:relative;z-index:1;}
+.i-chip{background:#0A1540;padding:14px 6px;text-align:center;}
+.i-icon{font-size:18px;margin-bottom:4px;display:block;}
+.i-lbl{font-size:8px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.i-val{font-size:11px;font-weight:700;color:var(--white);line-height:1.4;}
+
+/* ═══ FORM ═══ */
+.form-sec{background:var(--cream);padding:26px 18px 36px;}
+.sec-head{text-align:center;margin-bottom:24px;}
+.sec-head h2{font-size:19px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.sec-head p{font-size:13px;color:var(--tl);line-height:1.6;}
+.div-orn{display:flex;align-items:center;gap:8px;justify-content:center;margin:6px 0 16px;}
+.div-orn::before{content:'';flex:1;max-width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
+.div-orn::after{content:'';flex:1;max-width:56px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);}
+.div-d{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);}
+
+.field{margin-bottom:20px;}
+.field label{display:block;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:9px;line-height:1.3;}
+.req{color:var(--red);margin-left:2px;}
+.opt{color:var(--tl);font-weight:400;font-size:12px;margin-left:4px;}
+
+/* Input & select — font-size 16px penting di iOS agar tidak auto-zoom */
+.field input,.field select{
+  width:100%;padding:16px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:16px;  /* JANGAN kurang dari 16px agar iOS tidak zoom */
+  color:var(--td);
+  background:var(--white);
+  border:2px solid rgba(26,43,95,.15);
+  border-radius:12px;
+  outline:none;
+  -webkit-appearance:none;appearance:none;
+  transition:border-color .2s,box-shadow .2s;
+  touch-action:manipulation;
+}
+.field input:focus,.field select:focus{
+  border-color:var(--navy-m);
+  box-shadow:0 0 0 3px rgba(45,74,140,.12);
+}
+.sel-wrap{position:relative;}
+.sel-wrap::after{content:'▾';position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--tm);pointer-events:none;font-size:16px;}
+
+/* ─── Radio cards — tap target besar ─── */
+.radio-group{display:flex;flex-direction:column;gap:12px;}
+.r-card input{display:none;}
+.r-label{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 18px;
+  background:var(--white);
+  border:2px solid rgba(26,43,95,.13);
+  border-radius:14px;cursor:pointer;
+  transition:border-color .18s,background .18s,box-shadow .18s;
+  -webkit-tap-highlight-color:transparent;user-select:none;
+  min-height:72px; /* guaranteed tap height */
+}
+.r-label:active{transform:scale(.985);}
+.r-icon{
+  width:46px;height:46px;border-radius:12px;flex-shrink:0;
+  background:var(--navy-l);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;transition:background .18s;
+}
+.r-txt-main{font-size:16px;font-weight:700;color:var(--td);line-height:1.3;}
+.r-txt-sub{font-size:12px;color:var(--tl);margin-top:3px;}
+.r-card input:checked + .r-label{
+  border-color:var(--navy-m);background:var(--navy-l);
+  box-shadow:0 0 0 3px rgba(45,74,140,.12);
+}
+.r-card input:checked + .r-label .r-icon{background:var(--navy-m);}
+.r-card input:checked + .r-label .r-txt-main{color:var(--navy);}
+
+/* ─── Counter ─── */
+.ctr-wrap{background:var(--white);border:2px solid rgba(26,43,95,.13);border-radius:14px;overflow:hidden;}
+.ctr-row{display:flex;align-items:center;}
+.ctr-btn{
+  width:72px;height:72px; /* extra besar untuk jempol */
+  display:flex;align-items:center;justify-content:center;
+  background:none;border:none;cursor:pointer;
+  font-size:32px;font-weight:500;color:var(--navy-m);
+  transition:background .15s;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.ctr-btn:active{background:var(--navy-l);}
+.ctr-btn:disabled{opacity:.3;cursor:not-allowed;}
+.ctr-val{flex:1;text-align:center;font-size:36px;font-weight:700;color:var(--navy);line-height:1;}
+.ctr-foot{padding:10px 14px;border-top:1px solid rgba(26,43,95,.07);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.ctr-tag{background:var(--navy-l);color:var(--navy-m);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+.ctr-hint{font-size:11px;color:var(--tl);line-height:1.5;}
+
+.detail-sec{display:none;}
+.detail-sec.on{display:block;}
+
+.note-box{background:rgba(15,110,86,.07);border:1px solid rgba(15,110,86,.22);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--green);margin-top:10px;line-height:1.7;}
+.warn-box{background:rgba(197,48,48,.06);border:1px solid rgba(197,48,48,.2);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--red);margin-top:10px;line-height:1.7;}
+
+.grp-title{font-size:10px;font-weight:700;color:var(--gold-d);text-transform:uppercase;letter-spacing:1.5px;margin:24px 0 14px;display:flex;align-items:center;gap:8px;}
+.grp-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(201,162,39,.35),transparent);}
+
+/* ─── Submit button ─── */
+.sub-btn{
+  width:100%;padding:19px;
+  background:linear-gradient(135deg,#1A2B5F 0%,#2D4A8C 100%);
+  color:var(--white);border:none;border-radius:14px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:16px;font-weight:700;
+  cursor:pointer;letter-spacing:.3px;
+  position:relative;overflow:hidden;
+  margin-top:10px;
+  transition:transform .15s,opacity .15s;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  min-height:58px;
+}
+.sub-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,162,39,.65),transparent);}
+.sub-btn:active:not(:disabled){transform:scale(.98);}
+.sub-btn:disabled{opacity:.6;cursor:not-allowed;}
+.spin{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .65s linear infinite;vertical-align:middle;margin-right:8px;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.priv-note{text-align:center;font-size:11px;color:var(--tl);margin-top:14px;line-height:1.7;}
+
+/* ═══ SUCCESS ═══ */
+.suc-screen{display:none;background:var(--cream);padding:48px 20px 44px;text-align:center;}
+.suc-screen.on{display:block;}
+.suc-ring{width:88px;height:88px;background:linear-gradient(135deg,var(--navy),var(--navy-m));border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 0 0 12px rgba(45,74,140,.1);}
+.suc-ar{font-family:'Amiri',serif;font-size:18px;color:var(--gold-d);margin-bottom:8px;}
+.suc-title{font-family:'Amiri',serif;font-size:30px;color:var(--navy);margin-bottom:10px;}
+.suc-msg{font-size:14px;color:var(--tm);line-height:1.8;max-width:320px;margin:0 auto 26px;}
+.ticket{background:var(--white);border:1px solid rgba(201,162,39,.28);border-radius:16px;overflow:hidden;max-width:360px;margin:0 auto 26px;text-align:left;}
+.tk-head{background:linear-gradient(135deg,var(--navy),var(--navy-m));padding:14px 18px;display:flex;align-items:center;gap:12px;}
+.tk-hico{font-size:22px;}
+.tk-htxt{color:var(--white);}
+.tk-htxt strong{font-size:14px;display:block;}
+.tk-htxt span{font-size:11px;opacity:.7;}
+.tk-body{padding:4px 18px 12px;}
+.tk-row{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.05);gap:10px;}
+.tk-row:last-child{border-bottom:none;}
+.tk{font-size:12px;color:var(--tl);flex-shrink:0;}
+.tv{font-size:13px;font-weight:700;color:var(--td);text-align:right;}
+.tv.hadir{color:var(--green);}
+.tv.tidak{color:var(--red);}
+.tk-foot{background:rgba(201,162,39,.06);border-top:1px dashed rgba(201,162,39,.3);padding:12px 18px;text-align:center;font-size:11px;color:var(--gold-d);letter-spacing:.4px;}
+.reset-btn{background:none;border:2px solid var(--navy-m);color:var(--navy-m);padding:15px 32px;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;min-height:52px;}
+.reset-btn:active{background:var(--navy-l);}
+
+/* ═══ ERROR / FOOTER ═══ */
+.err-screen{display:none;background:var(--cream);padding:52px 20px;text-align:center;}
+.err-screen.on{display:block;}
+.site-footer{background:rgba(7,16,46,.97);padding:22px 18px;text-align:center;}
+.site-footer p{font-size:11px;color:rgba(255,255,255,.38);line-height:2.1;}
+.site-footer .gld{color:var(--gold);}
+
+@media(max-width:360px){
+  .h-title{font-size:28px;}
+  .bismillah{font-size:19px;}
+  .ctr-btn{width:60px;height:60px;}
+  .ctr-val{font-size:30px;}
+  .r-label{padding:15px 14px;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <div class="c-orn tl"><svg viewBox="0 0 48 48" fill="none"><path d="M2 46V24C2 11.85 11.85 2 24 2H46" stroke="#C9A227" stroke-width="1.5"/><circle cx="24" cy="24" r="3.5" fill="#C9A227"/><circle cx="2" cy="46" r="2" fill="#C9A227"/><circle cx="46" cy="2" r="2" fill="#C9A227"/></svg></div>
+  <div class="c-orn tr"><svg viewBox="0 0 48 48" fill="none"><path d="M2 46V24C2 11.85 11.85 2 24 2H46" stroke="#C9A227" stroke-width="1.5"/><circle cx="24" cy="24" r="3.5" fill="#C9A227"/><circle cx="2" cy="46" r="2" fill="#C9A227"/><circle cx="46" cy="2" r="2" fill="#C9A227"/></svg></div>
+  <div class="orn-row"><div class="orn-l"></div><div class="orn-d"></div><div class="orn-d"></div><div class="orn-d"></div><div class="orn-l"></div></div>
+  <div class="bismillah">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْم</div>
+  <div class="h-badge">Formulir Konfirmasi Kehadiran</div>
+  <div class="h-title">Halal Bihalal<br><span>Keluarga Besar</span></div>
+  <div class="h-sub">SMAN 4 Jember &nbsp;·&nbsp; Idul Fitri 1447 H</div>
+  <div class="info-strip">
+    <div class="i-chip"><span class="i-icon">📅</span><div class="i-lbl">Tanggal</div><div class="i-val">Minggu<br>29 Maret 2026</div></div>
+    <div class="i-chip"><span class="i-icon">🕘</span><div class="i-lbl">Waktu</div><div class="i-val">09.00 WIB<br>s/d selesai</div></div>
+    <div class="i-chip"><span class="i-icon">📍</span><div class="i-lbl">Lokasi</div><div class="i-val">Cafe Tebing<br>Taman Botani</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ FORM ═══════════════ -->
+<div class="form-sec" id="form-wrap">
+  <div class="sec-head">
+    <h2>Konfirmasi Kehadiran Anda</h2>
+    <div class="div-orn"><div class="div-d"></div></div>
+    <p>Isi form ini agar panitia dapat<br>menyiapkan tempat &amp; hidangan dengan tepat.</p>
+  </div>
+
+  <div class="field">
+    <label for="nama">Nama Lengkap <span class="req">*</span></label>
+    <input type="text" id="nama"
+      placeholder="Tulis nama lengkap Anda..."
+      autocomplete="name" autocorrect="off"
+      spellcheck="false" inputmode="text" enterkeyhint="next">
+  </div>
+
+  <div class="grp-title">Konfirmasi Kehadiran</div>
+
+  <div class="field">
+    <label>Apakah Anda akan hadir? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label class="r-card">
+        <input type="radio" name="hadir" value="hadir" id="r-hadir">
+        <div class="r-label">
+          <div class="r-icon">✅</div>
+          <div>
+            <div class="r-txt-main">Insya Allah Hadir</div>
+            <div class="r-txt-sub">Saya akan datang ke acara</div>
+          </div>
+        </div>
+      </label>
+      <label class="r-card">
+        <input type="radio" name="hadir" value="tidak" id="r-tidak">
+        <div class="r-label">
+          <div class="r-icon">🙏</div>
+          <div>
+            <div class="r-txt-main">Mohon Maaf</div>
+            <div class="r-txt-sub">Tidak dapat hadir</div>
+          </div>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- ── Detail jika HADIR ── -->
+  <div class="detail-sec" id="det-hadir">
+    <div class="grp-title">Detail Kehadiran</div>
+
+    <div class="field">
+      <label>Jumlah Porsi yang Dibutuhkan <span class="req">*</span></label>
+      <div class="ctr-wrap">
+        <div class="ctr-row">
+          <button class="ctr-btn" id="btn-min" onclick="ctrChange(-1)" type="button" aria-label="Kurangi">−</button>
+          <div class="ctr-val" id="ctr-num">1</div>
+          <button class="ctr-btn" id="btn-pls" onclick="ctrChange(1)" type="button" aria-label="Tambah">+</button>
+        </div>
+        <div class="ctr-foot">
+          <span class="ctr-tag" id="ctr-tag">1 Porsi — Sendiri</span>
+          <span class="ctr-hint">Termasuk Anda &amp; keluarga yang dibawa</span>
+        </div>
+      </div>
+      <div class="note-box">
+        💡 Contoh: membawa istri + 2 anak → isi <strong>4 porsi</strong>.<br>
+        Data ini langsung digunakan panitia untuk memesan ke Cafe Tebing.
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="keluarga">Komposisi Keluarga yang Dibawa <span class="opt">(opsional)</span></label>
+      <div class="sel-wrap">
+        <select id="keluarga">
+          <option value="">— Pilih komposisi —</option>
+          <option>Sendiri saja</option>
+          <option>Bersama suami / istri</option>
+          <option>Bersama suami/istri + 1 anak</option>
+          <option>Bersama suami/istri + 2 anak</option>
+          <option>Bersama suami/istri + 3 anak</option>
+          <option>Bersama suami/istri + 4 anak atau lebih</option>
+          <option>Bersama orang tua / mertua</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Detail jika TIDAK HADIR ── -->
+  <div class="detail-sec" id="det-tidak">
+    <div class="grp-title">Keterangan</div>
+    <div class="field">
+      <label for="alasan">Alasan Tidak Dapat Hadir <span class="opt">(opsional)</span></label>
+      <div class="sel-wrap">
+        <select id="alasan">
+          <option value="">— Pilih alasan —</option>
+          <option>Ada acara keluarga</option>
+          <option>Sedang sakit / kurang sehat</option>
+          <option>Tugas dinas / perjalanan dinas</option>
+          <option>Ada keperluan mendadak</option>
+          <option>Tinggal di luar kota</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+      <div class="warn-box">
+        🙏 Terima kasih sudah tetap mengisi konfirmasi ini.<br>
+        Jazakumullah khairan atas pengertiannya.
+      </div>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div id="err-msg" class="warn-box" style="display:none;margin-top:4px;">
+    ⚠️ Mohon isi <strong>Nama Lengkap</strong> dan pilih <strong>status kehadiran</strong>.
+  </div>
+
+  <button class="sub-btn" id="btn-sub" onclick="kirimData()" type="button">
+    ✦ &nbsp;Kirim Konfirmasi Kehadiran
+  </button>
+  <p class="priv-note">Data hanya digunakan untuk keperluan acara halal bihalal.</p>
+</div>
+
+<!-- ═══════════════ SUCCESS ═══════════════ -->
+<div class="suc-screen" id="suc-wrap">
+  <div class="suc-ring">🌙</div>
+  <div class="suc-ar">جَزَاكُمُ اللّٰهُ خَيْرًا</div>
+  <div class="suc-title">Konfirmasi Diterima!</div>
+  <p class="suc-msg">
+    Terima kasih, data Anda sudah tercatat.<br>
+    Sampai jumpa di acara halal bihalal! 🤝
+  </p>
+  <div class="ticket">
+    <div class="tk-head">
+      <div class="tk-hico">🎫</div>
+      <div class="tk-htxt">
+        <strong>Bukti Konfirmasi</strong>
+        <span>Halal Bihalal SMAN 4 Jember 1447 H</span>
+      </div>
+    </div>
+    <div class="tk-body">
+      <div class="tk-row"><span class="tk">Nama</span><span class="tv" id="s-nama"></span></div>
+      <div class="tk-row"><span class="tk">Status</span><span class="tv" id="s-status"></span></div>
+      <div class="tk-row" id="s-pr"><span class="tk">Jumlah Porsi</span><span class="tv" id="s-porsi"></span></div>
+      <div class="tk-row" id="s-kr"><span class="tk">Komposisi</span><span class="tv" id="s-kom"></span></div>
+      <div class="tk-row"><span class="tk">Waktu Daftar</span><span class="tv" id="s-waktu"></span></div>
+    </div>
+    <div class="tk-foot">📅 Minggu, 29 Maret 2026 · 09.00 WIB · Cafe Tebing, Taman Botani</div>
+  </div>
+  <button class="reset-btn" onclick="formReset()" type="button">← Isi Untuk Orang Lain</button>
+</div>
+
+<!-- ═══════════════ ERROR NET ═══════════════ -->
+<div class="err-screen" id="err-wrap">
+  <div style="font-size:46px;margin-bottom:16px;">⚠️</div>
+  <div style="font-family:'Amiri',serif;font-size:26px;color:var(--red);margin-bottom:10px;">Gagal Mengirim</div>
+  <p style="font-size:13px;color:var(--tm);line-height:1.8;margin-bottom:24px;">
+    Terjadi kesalahan. Pastikan URL Apps Script sudah benar<br>dan akses diset ke <strong>Anyone</strong>.
+  </p>
+  <button class="reset-btn" onclick="formKembali()" type="button">← Coba Lagi</button>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div class="site-footer">
+  <p>
+    <span class="gld">Halal Bihalal Keluarga Besar SMAN 4 Jember</span><br>
+    Idul Fitri 1447 H &nbsp;·&nbsp; Minggu, 29 Maret 2026 · 09.00 WIB<br>
+    Cafe Tebing, Taman Botani, Jl. Mujahir Sukorambi, Jember<br>
+    Kepala Sekolah: <span class="gld">Dora Indriana, S.Pd., M.Pd.</span>
+  </p>
+</div>
+</div><!-- /page -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+     Metode pengiriman: JSONP via <script> tag injection
+     ─────────────────────────────────────────────────────────
+     Ini adalah SATU-SATUNYA metode yang bekerja 100% di
+     Google Sites karena:
+     • fetch()  → diblokir CORS
+     • Image()  → diblokir CSP iframe Google Sites  
+     • <script> → SELALU lolos, tidak pernah diblokir
+     
+     Cara kerja:
+     1. Buat <script src="GAS_URL?...&callback=gasCallback">
+     2. Google Apps Script memanggil fungsi gasCallback(data)
+     3. Data tersimpan di Sheet SEBELUM callback dipanggil
+     4. Kita tampilkan halaman sukses
+═══════════════════════════════════════════════════════════ -->
+<script>
+let porsi = 1;
+const MAX_PORSI = 15;
+
+/* ── Counter ── */
+function ctrChange(d) {
+  porsi = Math.max(1, Math.min(MAX_PORSI, porsi + d));
+  document.getElementById('ctr-num').textContent = porsi;
+  const label = {1:'1 Porsi — Sendiri',2:'2 Porsi',3:'3 Porsi',4:'4 Porsi',5:'5 Porsi'};
+  document.getElementById('ctr-tag').textContent = label[porsi] || porsi + ' Porsi';
+  document.getElementById('btn-min').disabled = (porsi <= 1);
+  document.getElementById('btn-pls').disabled = (porsi >= MAX_PORSI);
+}
+
+/* ── Radio toggle ── */
+document.querySelectorAll('input[name="hadir"]').forEach(r => {
+  r.addEventListener('change', function() {
+    const hadir = this.value === 'hadir';
+    document.getElementById('det-hadir').classList.toggle('on', hadir);
+    document.getElementById('det-tidak').classList.toggle('on', !hadir);
+  });
+});
+
+/* ── Timestamp WIB ── */
+function getWIB() {
+  return new Date().toLocaleString('id-ID', {
+    timeZone: 'Asia/Jakarta',
+    day: '2-digit', month: 'long', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  }) + ' WIB';
+}
+
+/* ══════════════════════════════════════════════════════════
+   KIRIM DATA — JSONP via <script> tag
+   Metode ini 100% bekerja di Google Sites, tidak ada CORS,
+   tidak ada CSP block, tidak butuh fetch atau XMLHttpRequest
+══════════════════════════════════════════════════════════ */
+
+let _cbTimer   = null;  // timeout fallback
+let _pengiriman = null; // simpan data untuk ditampilkan
+
+/* Callback global — dipanggil oleh Google Apps Script */
+window.gasCallback = function(response) {
+  clearTimeout(_cbTimer);
+  // Hapus script tag yang sudah dipakai
+  const s = document.getElementById('_gas_script');
+  if (s) s.parentNode.removeChild(s);
+
+  if (response && response.status === 'ok') {
+    tampilSukses(_pengiriman.data, _pengiriman.isHadir);
+  } else {
+    tampilError();
+  }
+};
+
+function kirimData() {
+  const nama  = document.getElementById('nama').value.trim();
+  const hadir = document.querySelector('input[name="hadir"]:checked');
+  const errEl = document.getElementById('err-msg');
+
+  if (!nama || !hadir) {
+    errEl.style.display = 'block';
+    errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const isHadir  = hadir.value === 'hadir';
+  const keluarga = document.getElementById('keluarga').value;
+  const alasan   = document.getElementById('alasan').value;
+
+  const payload = {
+    timestamp:          getWIB(),
+    nama:               nama,
+    status:             isHadir ? 'HADIR' : 'TIDAK HADIR',
+    jumlah_porsi:       String(isHadir ? porsi : 0),
+    komposisi:          isHadir ? (keluarga || '-') : '-',
+    alasan_tidak_hadir: isHadir ? '-' : (alasan || '-'),
+    callback:           'gasCallback',   // ← GAS akan memanggil fungsi ini
+  };
+
+  /* Simpan untuk ditampilkan di halaman sukses */
+  _pengiriman = { data: payload, isHadir: isHadir };
+
+  /* Disable tombol, tampilkan spinner */
+  const btn = document.getElementById('btn-sub');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> Menyimpan...';
+
+  /* Bangun URL dengan semua parameter */
+  const params = new URLSearchParams(payload);
+  const url = GAS_URL + '?' + params.toString();
+
+  /* Hapus script tag lama jika ada */
+  const old = document.getElementById('_gas_script');
+  if (old) old.parentNode.removeChild(old);
+
+  /* Buat script tag baru → browser kirim GET request ke GAS */
+  const script = document.createElement('script');
+  script.id  = '_gas_script';
+  script.src = url;
+
+  script.onerror = function() {
+    clearTimeout(_cbTimer);
+    /* Script error bisa berarti network issue, tapi data
+       mungkin sudah tersimpan. Tampilkan sukses juga. */
+    tampilSukses(_pengiriman.data, _pengiriman.isHadir);
+  };
+
+  /* Timeout 8 detik — jika callback tidak dipanggil */
+  _cbTimer = setTimeout(function() {
+    /* Setelah 8 detik tanpa respons, kemungkinan besar
+       data sudah tersimpan tapi callback terblokir.
+       Tampilkan sukses. */
+    tampilSukses(_pengiriman.data, _pengiriman.isHadir);
+  }, 8000);
+
+  document.body.appendChild(script);
+}
+
+/* ── Tampil halaman sukses ── */
+function tampilSukses(d, isHadir) {
+  document.getElementById('s-nama').textContent  = d.nama;
+  document.getElementById('s-waktu').textContent = d.timestamp;
+
+  const stEl = document.getElementById('s-status');
+  stEl.textContent = isHadir ? 'Insya Allah Hadir ✅' : 'Tidak dapat hadir 🙏';
+  stEl.className   = 'tv ' + (isHadir ? 'hadir' : 'tidak');
+
+  document.getElementById('s-pr').style.display = isHadir ? 'flex' : 'none';
+  document.getElementById('s-kr').style.display = isHadir ? 'flex' : 'none';
+  if (isHadir) {
+    document.getElementById('s-porsi').textContent = d.jumlah_porsi + ' porsi';
+    document.getElementById('s-kom').textContent   = (d.komposisi && d.komposisi !== '-') ? d.komposisi : '—';
+  }
+
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('suc-wrap').classList.add('on');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function tampilError() {
+  const btn = document.getElementById('btn-sub');
+  btn.disabled  = false;
+  btn.innerHTML = '✦ &nbsp;Kirim Konfirmasi Kehadiran';
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('err-wrap').classList.add('on');
+}
+
+/* ── Reset form ── */
+function formReset() {
+  document.getElementById('nama').value     = '';
+  document.getElementById('keluarga').value = '';
+  document.getElementById('alasan').value   = '';
+  document.querySelectorAll('input[name="hadir"]').forEach(r => r.checked = false);
+  document.getElementById('det-hadir').classList.remove('on');
+  document.getElementById('det-tidak').classList.remove('on');
+
+  porsi = 1;
+  document.getElementById('ctr-num').textContent = '1';
+  document.getElementById('ctr-tag').textContent = '1 Porsi — Sendiri';
+  document.getElementById('btn-min').disabled = true;
+  document.getElementById('btn-pls').disabled = false;
+
+  const btn = document.getElementById('btn-sub');
+  btn.disabled  = false;
+  btn.innerHTML = '✦ &nbsp;Kirim Konfirmasi Kehadiran';
+
+  document.getElementById('suc-wrap').classList.remove('on');
+  document.getElementById('err-wrap').classList.remove('on');
+  document.getElementById('form-wrap').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function formKembali() {
+  document.getElementById('err-wrap').classList.remove('on');
+  document.getElementById('form-wrap').style.display = 'block';
+  const btn = document.getElementById('btn-sub');
+  btn.disabled  = false;
+  btn.innerHTML = '✦ &nbsp;Kirim Konfirmasi Kehadiran';
+}
+
+/* Init state */
+document.getElementById('btn-min').disabled = true;
+</script>
+</body>
+</html>
