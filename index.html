@@ -11,7 +11,7 @@
   // ══════════════════════════════════════════════════════════
   //  GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
   // ══════════════════════════════════════════════════════════
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbzLDp0IJ7_62ifsf05P_P0ZTiAOb5wLHx1Ky3HWAAftdm1uCiAcA_Ep2IP2t6eG5F2T8A/exec";
+  const GAS_URL = "httphttps://script.google.com/macros/s/AKfycbzLDp0IJ7_62ifsf05P_P0ZTiAOb5wLHx1Ky3HWAAftdm1uCiAcA_Ep2IP2t6eG5F2T8A/exec";
 
   // ══════════════════════════════════════════════════════════
   //  DAFTAR NAMA GURU & KARYAWAN SMAN 4 JEMBER
@@ -95,7 +95,7 @@
     "Dian Agustin",
     "Imroatul Hasanah",
     // ← Tambahkan nama lain di sini
-].sort(); // diurutkan otomatis A-Z
+  ].sort();
 </script>
 
 <style>
@@ -429,17 +429,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
     <div class="grp-title">Keterangan</div>
     <div class="field">
       <label for="alasan">Alasan Tidak Dapat Hadir <span class="opt">(opsional)</span></label>
-      <div class="sel-wrap">
-        <select id="alasan">
-          <option value="">— Pilih alasan —</option>
-          <option>Ada acara keluarga</option>
-          <option>Sedang sakit / kurang sehat</option>
-          <option>Tugas dinas / perjalanan dinas</option>
-          <option>Ada keperluan mendadak</option>
-          <option>Tinggal di luar kota</option>
-          <option>Lainnya</option>
-        </select>
-      </div>
+      <textarea id="alasan"
+        placeholder="Tulis alasan Anda di sini..."
+        rows="3"
+        style="width:100%;padding:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;color:var(--td);background:var(--white);border:2px solid rgba(26,43,95,.15);border-radius:12px;outline:none;resize:none;transition:border-color .2s,box-shadow .2s;touch-action:manipulation;"
+        onfocus="this.style.borderColor='var(--navy-m)';this.style.boxShadow='0 0 0 3px rgba(45,74,140,.12)'"
+        onblur="this.style.borderColor='rgba(26,43,95,.15)';this.style.boxShadow='none'"
+      ></textarea>
       <div class="warn-box">
         🙏 Terima kasih sudah tetap mengisi konfirmasi ini.<br>
         Jazakumullah khairan atas pengertiannya.
@@ -502,7 +498,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
     <span class="gld">Halal Bihalal Keluarga Besar SMAN 4 Jember</span><br>
     Idul Fitri 1447 H &nbsp;·&nbsp; Minggu, 29 Maret 2026 · 09.00 WIB<br>
     Cafe Tebing, Taman Botani, Jl. Mujahir Sukorambi, Jember<br>
-    Kepala Sekolah: <span class="gld">Dora Indriana, S.Pd., M.Pd.</span>
+    Turut mengundang, Kepala SMAN 4 Jember : <span class="gld">Dora Indriana, S.Pd., M.Pd.</span>
   </p>
 </div>
 </div>
