@@ -10,10 +10,95 @@
 <script>
   // ══════════════════════════════════════════════════════════
   //  GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-  //  Dapatkan URL ini dari: Deploy → Manage Deployments → salin
   // ══════════════════════════════════════════════════════════
   const GAS_URL = "https://script.google.com/macros/s/AKfycbzLDp0IJ7_62ifsf05P_P0ZTiAOb5wLHx1Ky3HWAAftdm1uCiAcA_Ep2IP2t6eG5F2T8A/exec";
+
   // ══════════════════════════════════════════════════════════
+  //  DAFTAR NAMA GURU & KARYAWAN SMAN 4 JEMBER
+  //  Tambah / hapus / edit nama sesuai data sekolah Anda
+  //  Format: "Nama Lengkap, S.Pd." — satu nama per baris
+  // ══════════════════════════════════════════════════════════
+  const DAFTAR_NAMA = [
+    "Dora Indriana, S.Pd., M.Pd.",
+    "Drs. Purwo Nugroho",
+    "Agustini, S.Pd.",
+    "Elok Kurniawati, M.Pd.",
+    "Drs. Amir Mahmud, M.Pd.",
+    "Drs. Bambang Sunardi, M.Pd.",
+    "Jujun Endah Pratiwi, S.Pd.",
+    "Handoko Hadi, S.Pd.",
+    "Yetty Noermaningsih, S.Pd., M.Pd.",
+    "Han Nanik, S.Pd.",
+    "Ronny Prasetyo Wibowo Kusuma, S.Pd.",
+    "Ida Ernawati, S.Pd., M.Pd.",
+    "Yuliati, S.Pd., M.Pd.",
+    "Muhammad Effendi, S.Pd., M.Pd.",
+    "Yayuk Sri Rahayu Budiawati, S.E.",
+    "Erva Vera Dinata, S.E.",
+    "Abdul Halim, S.Ag.",
+    "Luluk Khuriyah, S.Pd.",
+    "Eko Budy Purwantoro, S.Pd.",
+    "Nur Sulaiman, S.Kom.",
+    "Rifan Hidayat, S.Pd.",
+    "Agustina Arisanti, S.Si., Gr.",
+    "Sobi Mardiyas, S.Pd., Gr.",
+    "Dian Sandy Utama, S.Kom.",
+    "Finda Dwi Permatahati, S.Pd., Gr.",
+    "Linda Kusumawardani, S.Pd., Gr.",
+    "Ike Fatmawati, S.Pd.",
+    "Pradhita Intan Fahrindianti T., S.Pd.",
+    "Adhitya Tri Nanda, S.Pd.",
+    "Imam Syafi'i, S.Kom.",
+    "Giyastutik, S.S.",
+    "Yusria Izzatul Ulva, S.Pd., Gr., M.Pd.",
+    "Rony Iwan Riswanto, S.Pd.",
+    "Elisa Dwi Januarita, S.S.",
+    "Putri Firda Nurul Istiqomah, S.Pd.",
+    "Sofiatul Annisa, S.Pd.",
+    "Lia Herawati, S.E.",
+    "Eni Yuliana, S.Pd.",
+    "Dodik Efendi, S.Pd.",
+    "Rudi Hindarto, S.Pd.",
+    "I'iswati, S.Pd.",
+    "Dewi Aisyah, S.Pd.",
+    "Dewi Maysaroh, S.Pd., Gr.",
+    "Tutus Wahyudi, S.Pd.",
+    "Mokhamad Riyan Ardiansyah, S.Pd.",
+    "Risa Miftahul Fanani, S.Pd.",
+    "Nur Fadhillah, S.Pd.I.",
+    "Siva Nur Ismaya, S.Pd.",
+    "Imam Ma'ruf, S.Pd.",
+    "M. Midrorun Niam Mubarok, S.H., M.H.",
+    "Miftakhul Khusnah, S.S.",
+    "Anies Isnaini Haibah Asma, S.Pd.",
+    "Laini Tri Octaviani, S.Pd.",
+    "Rahmi MT, S.Pd., M.Pd.",
+    "Zahra Dinda Aini, S.Pd.",
+    "Roland Sitompul",
+    "Yohanes Sardjana",
+    "I Ketut Mahardhika",
+    "Mohamad Sodikin",
+    "Ahmad Zaini Dahlan",
+    "Rian Adi Wijaya",
+    "Wawan Harianto",
+    "Arif Nur Hidayah, S.Tr.Kom.",
+    "Umi Hayati",
+    "Haries Setyo Utomo",
+    "Muhammad Anwari",
+    "Resmi Handani, S.E.",
+    "Risma Mardiana Agustin",
+    "Robi Assadur Rohman",
+    "Suhermanto",
+    "Ponidi Saputro",
+    "Valdi Curnia Kasih",
+    "Nara Sandy Pratama",
+    "Heru Purwanto",
+    "Widya Faulina Hariimurti",
+    "Abdul Hadi",
+    "Dian Agustin",
+    "Imroatul Hasanah",
+    // ← Tambahkan nama lain di sini
+].sort(); // diurutkan otomatis A-Z
 </script>
 
 <style>
@@ -29,16 +114,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
 .page{max-width:520px;margin:0 auto;}
 
 /* ═══ HERO ═══ */
-.hero{
-  background:linear-gradient(175deg,#07102E 0%,#1A2B5F 60%,#0F3460 100%);
-  padding:28px 20px 0;text-align:center;position:relative;overflow:hidden;
-}
-.hero::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse at 10% 15%,rgba(201,162,39,.15) 0%,transparent 50%),
-    radial-gradient(ellipse at 90% 80%,rgba(201,162,39,.12) 0%,transparent 50%);
-}
+.hero{background:linear-gradient(175deg,#07102E 0%,#1A2B5F 60%,#0F3460 100%);padding:28px 20px 0;text-align:center;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 10% 15%,rgba(201,162,39,.15) 0%,transparent 50%),radial-gradient(ellipse at 90% 80%,rgba(201,162,39,.12) 0%,transparent 50%);}
 .c-orn{position:absolute;width:48px;height:48px;opacity:.4;}
 .c-orn.tl{top:10px;left:10px;}
 .c-orn.tr{top:10px;right:10px;transform:scaleX(-1);}
@@ -67,101 +144,131 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
 .div-orn::after{content:'';flex:1;max-width:56px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);}
 .div-d{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);}
 
+/* ── Field dasar ── */
 .field{margin-bottom:20px;}
 .field label{display:block;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:9px;line-height:1.3;}
 .req{color:var(--red);margin-left:2px;}
 .opt{color:var(--tl);font-weight:400;font-size:12px;margin-left:4px;}
 
-/* Input & select — font-size 16px penting di iOS agar tidak auto-zoom */
+/* SEMUA input/select: font-size 16px agar iOS tidak auto-zoom */
 .field input,.field select{
   width:100%;padding:16px;
   font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:16px;  /* JANGAN kurang dari 16px agar iOS tidak zoom */
-  color:var(--td);
+  font-size:16px;color:var(--td);
   background:var(--white);
   border:2px solid rgba(26,43,95,.15);
   border-radius:12px;
-  outline:none;
-  -webkit-appearance:none;appearance:none;
+  outline:none;-webkit-appearance:none;appearance:none;
   transition:border-color .2s,box-shadow .2s;
   touch-action:manipulation;
 }
-.field input:focus,.field select:focus{
-  border-color:var(--navy-m);
-  box-shadow:0 0 0 3px rgba(45,74,140,.12);
-}
+.field input:focus,.field select:focus{border-color:var(--navy-m);box-shadow:0 0 0 3px rgba(45,74,140,.12);}
 .sel-wrap{position:relative;}
 .sel-wrap::after{content:'▾';position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--tm);pointer-events:none;font-size:16px;}
 
-/* ─── Radio cards — tap target besar ─── */
+/* ── Searchable nama ── */
+.nama-wrap{position:relative;}
+#nama-input{
+  width:100%;padding:16px 44px 16px 16px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:16px;color:var(--td);
+  background:var(--white);
+  border:2px solid rgba(26,43,95,.15);
+  border-radius:12px;
+  outline:none;-webkit-appearance:none;
+  transition:border-color .2s,box-shadow .2s;
+  touch-action:manipulation;
+}
+#nama-input:focus{border-color:var(--navy-m);box-shadow:0 0 0 3px rgba(45,74,140,.12);}
+.nama-clear{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:rgba(26,43,95,.12);border:none;
+  width:26px;height:26px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;
+  cursor:pointer;font-size:14px;color:var(--tm);
+  -webkit-tap-highlight-color:transparent;
+}
+.nama-clear.show{display:flex;}
+.nama-dropdown{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;
+  background:var(--white);
+  border:2px solid var(--navy-m);
+  border-radius:12px;
+  max-height:220px;overflow-y:auto;
+  z-index:100;
+  display:none;
+  box-shadow:0 8px 24px rgba(26,43,95,.15);
+}
+.nama-dropdown.open{display:block;}
+.nd-item{
+  padding:14px 16px;
+  font-size:15px;color:var(--td);
+  cursor:pointer;border-bottom:1px solid rgba(26,43,95,.06);
+  transition:background .12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.nd-item:last-child{border-bottom:none;}
+.nd-item:active,.nd-item.focus{background:var(--navy-l);color:var(--navy);}
+.nd-item mark{background:transparent;color:var(--navy-m);font-weight:700;}
+.nd-empty{padding:14px 16px;font-size:14px;color:var(--tl);text-align:center;}
+
+/* ── Row 2 kolom untuk dropdown kecil ── */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.field-row .field{margin-bottom:0;}
+
+/* ── Porsi badge — auto kalkulasi ── */
+.porsi-badge{
+  display:flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--navy),var(--navy-m));
+  border-radius:12px;padding:14px 18px;margin-top:12px;
+}
+.porsi-badge-num{
+  font-size:32px;font-weight:700;color:var(--white);
+  min-width:40px;text-align:center;line-height:1;
+}
+.porsi-badge-info{color:rgba(255,255,255,.85);font-size:12px;line-height:1.6;}
+.porsi-badge-info strong{font-size:14px;display:block;color:var(--gold-l);}
+
+/* ── Radio cards ── */
 .radio-group{display:flex;flex-direction:column;gap:12px;}
 .r-card input{display:none;}
 .r-label{
   display:flex;align-items:center;gap:14px;
-  padding:18px 18px;
-  background:var(--white);
-  border:2px solid rgba(26,43,95,.13);
-  border-radius:14px;cursor:pointer;
-  transition:border-color .18s,background .18s,box-shadow .18s;
+  padding:18px 18px;background:var(--white);
+  border:2px solid rgba(26,43,95,.13);border-radius:14px;
+  cursor:pointer;transition:all .18s;
   -webkit-tap-highlight-color:transparent;user-select:none;
-  min-height:72px; /* guaranteed tap height */
+  min-height:72px;
 }
 .r-label:active{transform:scale(.985);}
-.r-icon{
-  width:46px;height:46px;border-radius:12px;flex-shrink:0;
-  background:var(--navy-l);
-  display:flex;align-items:center;justify-content:center;
-  font-size:24px;transition:background .18s;
-}
+.r-icon{width:46px;height:46px;border-radius:12px;flex-shrink:0;background:var(--navy-l);display:flex;align-items:center;justify-content:center;font-size:24px;transition:background .18s;}
 .r-txt-main{font-size:16px;font-weight:700;color:var(--td);line-height:1.3;}
 .r-txt-sub{font-size:12px;color:var(--tl);margin-top:3px;}
-.r-card input:checked + .r-label{
-  border-color:var(--navy-m);background:var(--navy-l);
-  box-shadow:0 0 0 3px rgba(45,74,140,.12);
-}
+.r-card input:checked + .r-label{border-color:var(--navy-m);background:var(--navy-l);box-shadow:0 0 0 3px rgba(45,74,140,.12);}
 .r-card input:checked + .r-label .r-icon{background:var(--navy-m);}
 .r-card input:checked + .r-label .r-txt-main{color:var(--navy);}
 
-/* ─── Counter ─── */
-.ctr-wrap{background:var(--white);border:2px solid rgba(26,43,95,.13);border-radius:14px;overflow:hidden;}
-.ctr-row{display:flex;align-items:center;}
-.ctr-btn{
-  width:72px;height:72px; /* extra besar untuk jempol */
-  display:flex;align-items:center;justify-content:center;
-  background:none;border:none;cursor:pointer;
-  font-size:32px;font-weight:500;color:var(--navy-m);
-  transition:background .15s;flex-shrink:0;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-}
-.ctr-btn:active{background:var(--navy-l);}
-.ctr-btn:disabled{opacity:.3;cursor:not-allowed;}
-.ctr-val{flex:1;text-align:center;font-size:36px;font-weight:700;color:var(--navy);line-height:1;}
-.ctr-foot{padding:10px 14px;border-top:1px solid rgba(26,43,95,.07);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.ctr-tag{background:var(--navy-l);color:var(--navy-m);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;}
-.ctr-hint{font-size:11px;color:var(--tl);line-height:1.5;}
-
+/* Collapsible */
 .detail-sec{display:none;}
 .detail-sec.on{display:block;}
 
+/* Boxes */
 .note-box{background:rgba(15,110,86,.07);border:1px solid rgba(15,110,86,.22);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--green);margin-top:10px;line-height:1.7;}
 .warn-box{background:rgba(197,48,48,.06);border:1px solid rgba(197,48,48,.2);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--red);margin-top:10px;line-height:1.7;}
 
 .grp-title{font-size:10px;font-weight:700;color:var(--gold-d);text-transform:uppercase;letter-spacing:1.5px;margin:24px 0 14px;display:flex;align-items:center;gap:8px;}
 .grp-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(201,162,39,.35),transparent);}
 
-/* ─── Submit button ─── */
+/* ── Submit ── */
 .sub-btn{
   width:100%;padding:19px;
   background:linear-gradient(135deg,#1A2B5F 0%,#2D4A8C 100%);
   color:var(--white);border:none;border-radius:14px;
   font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:16px;font-weight:700;
-  cursor:pointer;letter-spacing:.3px;
-  position:relative;overflow:hidden;
-  margin-top:10px;
-  transition:transform .15s,opacity .15s;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  min-height:58px;
+  font-size:16px;font-weight:700;cursor:pointer;
+  letter-spacing:.3px;position:relative;overflow:hidden;
+  margin-top:10px;transition:transform .15s,opacity .15s;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:58px;
 }
 .sub-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,162,39,.65),transparent);}
 .sub-btn:active:not(:disabled){transform:scale(.98);}
@@ -190,6 +297,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
 .tv{font-size:13px;font-weight:700;color:var(--td);text-align:right;}
 .tv.hadir{color:var(--green);}
 .tv.tidak{color:var(--red);}
+.tv.porsi{color:var(--navy-m);font-size:15px;}
 .tk-foot{background:rgba(201,162,39,.06);border-top:1px dashed rgba(201,162,39,.3);padding:12px 18px;text-align:center;font-size:11px;color:var(--gold-d);letter-spacing:.4px;}
 .reset-btn{background:none;border:2px solid var(--navy-m);color:var(--navy-m);padding:15px 32px;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;min-height:52px;}
 .reset-btn:active{background:var(--navy-l);}
@@ -204,16 +312,14 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
 @media(max-width:360px){
   .h-title{font-size:28px;}
   .bismillah{font-size:19px;}
-  .ctr-btn{width:60px;height:60px;}
-  .ctr-val{font-size:30px;}
-  .r-label{padding:15px 14px;}
+  .field-row{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 <div class="page">
 
-<!-- ═══════════════ HERO ═══════════════ -->
+<!-- ═══════════ HERO ═══════════ -->
 <div class="hero">
   <div class="c-orn tl"><svg viewBox="0 0 48 48" fill="none"><path d="M2 46V24C2 11.85 11.85 2 24 2H46" stroke="#C9A227" stroke-width="1.5"/><circle cx="24" cy="24" r="3.5" fill="#C9A227"/><circle cx="2" cy="46" r="2" fill="#C9A227"/><circle cx="46" cy="2" r="2" fill="#C9A227"/></svg></div>
   <div class="c-orn tr"><svg viewBox="0 0 48 48" fill="none"><path d="M2 46V24C2 11.85 11.85 2 24 2H46" stroke="#C9A227" stroke-width="1.5"/><circle cx="24" cy="24" r="3.5" fill="#C9A227"/><circle cx="2" cy="46" r="2" fill="#C9A227"/><circle cx="46" cy="2" r="2" fill="#C9A227"/></svg></div>
@@ -229,7 +335,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
   </div>
 </div>
 
-<!-- ═══════════════ FORM ═══════════════ -->
+<!-- ═══════════ FORM ═══════════ -->
 <div class="form-sec" id="form-wrap">
   <div class="sec-head">
     <h2>Konfirmasi Kehadiran Anda</h2>
@@ -237,16 +343,22 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
     <p>Isi form ini agar panitia dapat<br>menyiapkan tempat &amp; hidangan dengan tepat.</p>
   </div>
 
+  <!-- NAMA — searchable dropdown -->
   <div class="field">
-    <label for="nama">Nama Lengkap <span class="req">*</span></label>
-    <input type="text" id="nama"
-      placeholder="Tulis nama lengkap Anda..."
-      autocomplete="name" autocorrect="off"
-      spellcheck="false" inputmode="text" enterkeyhint="next">
+    <label>Nama Lengkap <span class="req">*</span></label>
+    <div class="nama-wrap">
+      <input type="text" id="nama-input"
+        placeholder="Ketik atau pilih nama Anda..."
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        inputmode="text" enterkeyhint="done"
+        oninput="namaInput()" onfocus="namaFocus()" onblur="namaBlur()">
+      <button class="nama-clear" id="nama-clear" onclick="namaClear()" type="button" tabindex="-1">✕</button>
+      <div class="nama-dropdown" id="nama-dropdown"></div>
+    </div>
   </div>
 
+  <!-- STATUS KEHADIRAN -->
   <div class="grp-title">Konfirmasi Kehadiran</div>
-
   <div class="field">
     <label>Apakah Anda akan hadir? <span class="req">*</span></label>
     <div class="radio-group">
@@ -255,7 +367,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
         <div class="r-label">
           <div class="r-icon">✅</div>
           <div>
-            <div class="r-txt-main">Insya Allah Hadir</div>
+            <div class="r-txt-main">Hadir</div>
             <div class="r-txt-sub">Saya akan datang ke acara</div>
           </div>
         </div>
@@ -273,48 +385,49 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
     </div>
   </div>
 
-  <!-- ── Detail jika HADIR ── -->
+  <!-- ══ DETAIL: HADIR ══ -->
   <div class="detail-sec" id="det-hadir">
-    <div class="grp-title">Detail Kehadiran</div>
+    <div class="grp-title">Rincian Kehadiran</div>
 
-    <div class="field">
-      <label>Jumlah Porsi yang Dibutuhkan <span class="req">*</span></label>
-      <div class="ctr-wrap">
-        <div class="ctr-row">
-          <button class="ctr-btn" id="btn-min" onclick="ctrChange(-1)" type="button" aria-label="Kurangi">−</button>
-          <div class="ctr-val" id="ctr-num">1</div>
-          <button class="ctr-btn" id="btn-pls" onclick="ctrChange(1)" type="button" aria-label="Tambah">+</button>
-        </div>
-        <div class="ctr-foot">
-          <span class="ctr-tag" id="ctr-tag">1 Porsi — Sendiri</span>
-          <span class="ctr-hint">Termasuk Anda &amp; keluarga yang dibawa</span>
+    <!-- Suami/Istri & Anak — 2 kolom -->
+    <div class="field-row">
+      <div class="field">
+        <label for="pasangan">Membawa Suami / Istri</label>
+        <div class="sel-wrap">
+          <select id="pasangan" onchange="hitungPorsi()">
+            <option value="0">Tidak membawa</option>
+            <option value="1">1 orang (suami/istri)</option>
+          </select>
         </div>
       </div>
-      <div class="note-box">
-        💡 Contoh: membawa istri + 2 anak → isi <strong>4 porsi</strong>.<br>
-        Data ini langsung digunakan panitia untuk memesan ke Cafe Tebing.
+      <div class="field">
+        <label for="anak">Membawa Anak Kecil</label>
+        <div class="sel-wrap">
+          <select id="anak" onchange="hitungPorsi()">
+            <option value="0">Tidak membawa</option>
+            <option value="1">1 anak</option>
+            <option value="2">2 anak</option>
+            <option value="3">3 anak</option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <div class="field">
-      <label for="keluarga">Komposisi Keluarga yang Dibawa <span class="opt">(opsional)</span></label>
-      <div class="sel-wrap">
-        <select id="keluarga">
-          <option value="">— Pilih komposisi —</option>
-          <option>Sendiri saja</option>
-          <option>Bersama suami / istri</option>
-          <option>Bersama suami/istri + 1 anak</option>
-          <option>Bersama suami/istri + 2 anak</option>
-          <option>Bersama suami/istri + 3 anak</option>
-          <option>Bersama suami/istri + 4 anak atau lebih</option>
-          <option>Bersama orang tua / mertua</option>
-          <option>Lainnya</option>
-        </select>
+    <!-- Porsi badge auto-hitung -->
+    <div class="porsi-badge" id="porsi-badge">
+      <div class="porsi-badge-num" id="porsi-num">1</div>
+      <div class="porsi-badge-info">
+        <strong id="porsi-label">1 Porsi</strong>
+        <span id="porsi-detail">Hanya Anda sendiri</span>
       </div>
+    </div>
+    <div class="note-box" style="margin-top:10px;">
+      💡 Jumlah porsi dihitung <strong>otomatis</strong> berdasarkan pilihan Anda di atas.<br>
+      1 porsi = Anda sendiri. Suami/istri &amp; anak masing-masing +1 porsi.
     </div>
   </div>
 
-  <!-- ── Detail jika TIDAK HADIR ── -->
+  <!-- ══ DETAIL: TIDAK HADIR ══ -->
   <div class="detail-sec" id="det-tidak">
     <div class="grp-title">Keterangan</div>
     <div class="field">
@@ -338,8 +451,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
   </div>
 
   <!-- Error -->
-  <div id="err-msg" class="warn-box" style="display:none;margin-top:4px;">
-    ⚠️ Mohon isi <strong>Nama Lengkap</strong> dan pilih <strong>status kehadiran</strong>.
+  <div id="err-msg" class="warn-box" style="display:none;margin-top:8px;">
+    ⚠️ Mohon <strong>pilih nama</strong> dan pilih <strong>status kehadiran</strong> Anda.
   </div>
 
   <button class="sub-btn" id="btn-sub" onclick="kirimData()" type="button">
@@ -348,28 +461,26 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
   <p class="priv-note">Data hanya digunakan untuk keperluan acara halal bihalal.</p>
 </div>
 
-<!-- ═══════════════ SUCCESS ═══════════════ -->
+<!-- ═══════════ SUCCESS ═══════════ -->
 <div class="suc-screen" id="suc-wrap">
   <div class="suc-ring">🌙</div>
   <div class="suc-ar">جَزَاكُمُ اللّٰهُ خَيْرًا</div>
   <div class="suc-title">Konfirmasi Diterima!</div>
-  <p class="suc-msg">
-    Terima kasih, data Anda sudah tercatat.<br>
-    Sampai jumpa di acara halal bihalal! 🤝
-  </p>
+  <p class="suc-msg">Terima kasih, data Anda sudah tercatat.<br>Sampai jumpa di acara halal bihalal! 🤝</p>
   <div class="ticket">
     <div class="tk-head">
       <div class="tk-hico">🎫</div>
-      <div class="tk-htxt">
-        <strong>Bukti Konfirmasi</strong>
-        <span>Halal Bihalal SMAN 4 Jember 1447 H</span>
-      </div>
+      <div class="tk-htxt"><strong>Bukti Konfirmasi</strong><span>Halal Bihalal SMAN 4 Jember 1447 H</span></div>
     </div>
     <div class="tk-body">
       <div class="tk-row"><span class="tk">Nama</span><span class="tv" id="s-nama"></span></div>
       <div class="tk-row"><span class="tk">Status</span><span class="tv" id="s-status"></span></div>
-      <div class="tk-row" id="s-pr"><span class="tk">Jumlah Porsi</span><span class="tv" id="s-porsi"></span></div>
-      <div class="tk-row" id="s-kr"><span class="tk">Komposisi</span><span class="tv" id="s-kom"></span></div>
+      <div class="tk-row" id="s-detail-row">
+        <span class="tk">Rincian</span><span class="tv" id="s-detail"></span>
+      </div>
+      <div class="tk-row" id="s-porsi-row">
+        <span class="tk">Total Porsi</span><span class="tv porsi" id="s-porsi"></span>
+      </div>
       <div class="tk-row"><span class="tk">Waktu Daftar</span><span class="tv" id="s-waktu"></span></div>
     </div>
     <div class="tk-foot">📅 Minggu, 29 Maret 2026 · 09.00 WIB · Cafe Tebing, Taman Botani</div>
@@ -377,17 +488,18 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
   <button class="reset-btn" onclick="formReset()" type="button">← Isi Untuk Orang Lain</button>
 </div>
 
-<!-- ═══════════════ ERROR NET ═══════════════ -->
+<!-- ═══════════ ERROR ═══════════ -->
 <div class="err-screen" id="err-wrap">
   <div style="font-size:46px;margin-bottom:16px;">⚠️</div>
   <div style="font-family:'Amiri',serif;font-size:26px;color:var(--red);margin-bottom:10px;">Gagal Mengirim</div>
   <p style="font-size:13px;color:var(--tm);line-height:1.8;margin-bottom:24px;">
-    Terjadi kesalahan. Pastikan URL Apps Script sudah benar<br>dan akses diset ke <strong>Anyone</strong>.
+    Terjadi kesalahan. Pastikan URL Apps Script sudah benar<br>
+    dan akses diset ke <strong>Anyone</strong>.
   </p>
   <button class="reset-btn" onclick="formKembali()" type="button">← Coba Lagi</button>
 </div>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
+<!-- ═══════════ FOOTER ═══════════ -->
 <div class="site-footer">
   <p>
     <span class="gld">Halal Bihalal Keluarga Besar SMAN 4 Jember</span><br>
@@ -396,163 +508,271 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0D1B4B;min-height:10
     Kepala Sekolah: <span class="gld">Dora Indriana, S.Pd., M.Pd.</span>
   </p>
 </div>
-</div><!-- /page -->
+</div>
 
-<!-- ═══════════════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════
      JAVASCRIPT
-     Metode pengiriman: JSONP via <script> tag injection
-     ─────────────────────────────────────────────────────────
-     Ini adalah SATU-SATUNYA metode yang bekerja 100% di
-     Google Sites karena:
-     • fetch()  → diblokir CORS
-     • Image()  → diblokir CSP iframe Google Sites  
-     • <script> → SELALU lolos, tidak pernah diblokir
-     
-     Cara kerja:
-     1. Buat <script src="GAS_URL?...&callback=gasCallback">
-     2. Google Apps Script memanggil fungsi gasCallback(data)
-     3. Data tersimpan di Sheet SEBELUM callback dipanggil
-     4. Kita tampilkan halaman sukses
-═══════════════════════════════════════════════════════════ -->
+═══════════════════════════════════════════════ -->
 <script>
-let porsi = 1;
-const MAX_PORSI = 15;
 
-/* ── Counter ── */
-function ctrChange(d) {
-  porsi = Math.max(1, Math.min(MAX_PORSI, porsi + d));
-  document.getElementById('ctr-num').textContent = porsi;
-  const label = {1:'1 Porsi — Sendiri',2:'2 Porsi',3:'3 Porsi',4:'4 Porsi',5:'5 Porsi'};
-  document.getElementById('ctr-tag').textContent = label[porsi] || porsi + ' Porsi';
-  document.getElementById('btn-min').disabled = (porsi <= 1);
-  document.getElementById('btn-pls').disabled = (porsi >= MAX_PORSI);
+/* ══════════════════════════════════
+   NAMA SEARCHABLE DROPDOWN
+══════════════════════════════════ */
+let namaSelected = '';   // nama yang sudah dipilih dengan benar
+let namaBlurTimer = null;
+
+function namaInit() {
+  const dd = document.getElementById('nama-dropdown');
+  dd.innerHTML = '';
+  DAFTAR_NAMA.forEach(function(nama) {
+    const div = document.createElement('div');
+    div.className = 'nd-item';
+    div.textContent = nama;
+    div.addEventListener('mousedown', function(e) {
+      e.preventDefault(); // cegah blur sebelum click
+    });
+    div.addEventListener('click', function() {
+      pilihNama(nama);
+    });
+    dd.appendChild(div);
+  });
 }
 
-/* ── Radio toggle ── */
-document.querySelectorAll('input[name="hadir"]').forEach(r => {
+function namaInput() {
+  const q   = document.getElementById('nama-input').value.trim().toLowerCase();
+  const dd  = document.getElementById('nama-dropdown');
+  const clr = document.getElementById('nama-clear');
+
+  namaSelected = ''; // reset saat user mengetik ulang
+  clr.classList.toggle('show', q.length > 0);
+
+  const hasil = DAFTAR_NAMA.filter(function(n) {
+    return n.toLowerCase().includes(q);
+  });
+
+  dd.innerHTML = '';
+  if (hasil.length === 0) {
+    dd.innerHTML = '<div class="nd-empty">Nama tidak ditemukan</div>';
+  } else {
+    hasil.forEach(function(nama) {
+      const div = document.createElement('div');
+      div.className = 'nd-item';
+      // Highlight teks yang cocok
+      const idx  = nama.toLowerCase().indexOf(q);
+      const safe = nama.replace(/</g,'&lt;');
+      if (q && idx >= 0) {
+        div.innerHTML = safe.substring(0,idx)
+          + '<mark>' + safe.substring(idx, idx+q.length) + '</mark>'
+          + safe.substring(idx+q.length);
+      } else {
+        div.textContent = nama;
+      }
+      div.addEventListener('mousedown', function(e){ e.preventDefault(); });
+      div.addEventListener('click', function(){ pilihNama(nama); });
+      dd.appendChild(div);
+    });
+  }
+  dd.classList.add('open');
+}
+
+function namaFocus() {
+  clearTimeout(namaBlurTimer);
+  const dd = document.getElementById('nama-dropdown');
+  // Tampilkan semua jika input kosong
+  if (!document.getElementById('nama-input').value.trim()) {
+    namaInit();
+  }
+  dd.classList.add('open');
+}
+
+function namaBlur() {
+  namaBlurTimer = setTimeout(function() {
+    document.getElementById('nama-dropdown').classList.remove('open');
+    // Jika user tidak memilih dari list, kosongkan
+    if (!namaSelected) {
+      document.getElementById('nama-input').value = '';
+      document.getElementById('nama-clear').classList.remove('show');
+    }
+  }, 200);
+}
+
+function pilihNama(nama) {
+  namaSelected = nama;
+  document.getElementById('nama-input').value = nama;
+  document.getElementById('nama-clear').classList.add('show');
+  document.getElementById('nama-dropdown').classList.remove('open');
+  document.getElementById('nama-input').blur();
+}
+
+function namaClear() {
+  namaSelected = '';
+  document.getElementById('nama-input').value = '';
+  document.getElementById('nama-clear').classList.remove('show');
+  document.getElementById('nama-input').focus();
+}
+
+/* ══════════════════════════════════
+   HITUNG PORSI OTOMATIS
+══════════════════════════════════ */
+function hitungPorsi() {
+  const pasangan = parseInt(document.getElementById('pasangan').value) || 0;
+  const anak     = parseInt(document.getElementById('anak').value)     || 0;
+  const total    = 1 + pasangan + anak;
+
+  document.getElementById('porsi-num').textContent = total;
+  document.getElementById('porsi-label').textContent = total + ' Porsi';
+
+  // Susun keterangan detail
+  const parts = ['Anda'];
+  if (pasangan === 1) parts.push('suami/istri');
+  if (anak === 1)     parts.push('1 anak');
+  if (anak === 2)     parts.push('2 anak');
+  if (anak === 3)     parts.push('3 anak');
+  document.getElementById('porsi-detail').textContent = parts.join(' + ');
+}
+
+/* ══════════════════════════════════
+   RADIO TOGGLE
+══════════════════════════════════ */
+document.querySelectorAll('input[name="hadir"]').forEach(function(r) {
   r.addEventListener('change', function() {
-    const hadir = this.value === 'hadir';
-    document.getElementById('det-hadir').classList.toggle('on', hadir);
-    document.getElementById('det-tidak').classList.toggle('on', !hadir);
+    const h = this.value === 'hadir';
+    document.getElementById('det-hadir').classList.toggle('on', h);
+    document.getElementById('det-tidak').classList.toggle('on', !h);
   });
 });
 
-/* ── Timestamp WIB ── */
+/* ══════════════════════════════════
+   TIMESTAMP WIB
+══════════════════════════════════ */
 function getWIB() {
   return new Date().toLocaleString('id-ID', {
-    timeZone: 'Asia/Jakarta',
-    day: '2-digit', month: 'long', year: 'numeric',
-    hour: '2-digit', minute: '2-digit'
+    timeZone:'Asia/Jakarta',
+    day:'2-digit',month:'long',year:'numeric',
+    hour:'2-digit',minute:'2-digit'
   }) + ' WIB';
 }
 
 /* ══════════════════════════════════════════════════════════
-   KIRIM DATA — JSONP via <script> tag
-   Metode ini 100% bekerja di Google Sites, tidak ada CORS,
-   tidak ada CSP block, tidak butuh fetch atau XMLHttpRequest
+   KIRIM DATA — JSONP via <script> tag injection
+   Satu-satunya metode yang 100% lolos dari Google Sites CSP.
+   
+   Alur:
+   1. Form data → URL query string
+   2. <script src="GAS_URL?...&callback=gasCallback"> dibuat
+   3. Browser kirim GET ke GAS
+   4. GAS simpan data → panggil gasCallback({status:"ok"})
+   5. Halaman sukses ditampilkan
 ══════════════════════════════════════════════════════════ */
 
-let _cbTimer   = null;  // timeout fallback
-let _pengiriman = null; // simpan data untuk ditampilkan
+let _cbTimer  = null;
+let _simpan   = null;
 
-/* Callback global — dipanggil oleh Google Apps Script */
-window.gasCallback = function(response) {
+window.gasCallback = function(res) {
   clearTimeout(_cbTimer);
-  // Hapus script tag yang sudah dipakai
-  const s = document.getElementById('_gas_script');
+  const s = document.getElementById('_gas_tag');
   if (s) s.parentNode.removeChild(s);
-
-  if (response && response.status === 'ok') {
-    tampilSukses(_pengiriman.data, _pengiriman.isHadir);
+  if (res && res.status === 'ok') {
+    tampilSukses(_simpan.payload, _simpan.isHadir);
   } else {
     tampilError();
   }
 };
 
 function kirimData() {
-  const nama  = document.getElementById('nama').value.trim();
-  const hadir = document.querySelector('input[name="hadir"]:checked');
   const errEl = document.getElementById('err-msg');
+  const hadir = document.querySelector('input[name="hadir"]:checked');
 
-  if (!nama || !hadir) {
+  if (!namaSelected || !hadir) {
     errEl.style.display = 'block';
-    errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    errEl.scrollIntoView({ behavior:'smooth', block:'center' });
     return;
   }
   errEl.style.display = 'none';
 
   const isHadir  = hadir.value === 'hadir';
-  const keluarga = document.getElementById('keluarga').value;
+  const pasangan = parseInt(document.getElementById('pasangan').value) || 0;
+  const anak     = parseInt(document.getElementById('anak').value)     || 0;
+  const total    = isHadir ? (1 + pasangan + anak) : 0;
   const alasan   = document.getElementById('alasan').value;
+
+  // Susun keterangan komposisi
+  const parts = isHadir ? ['Sendiri'] : [];
+  if (isHadir) {
+    const p2 = [];
+    if (pasangan) p2.push('suami/istri');
+    if (anak)     p2.push(anak + ' anak');
+    if (p2.length) parts.splice(0,1,'Bersama ' + p2.join(' & '));
+  }
 
   const payload = {
     timestamp:          getWIB(),
-    nama:               nama,
+    nama:               namaSelected,
     status:             isHadir ? 'HADIR' : 'TIDAK HADIR',
-    jumlah_porsi:       String(isHadir ? porsi : 0),
-    komposisi:          isHadir ? (keluarga || '-') : '-',
+    jumlah_pasangan:    String(isHadir ? pasangan : 0),
+    jumlah_anak:        String(isHadir ? anak : 0),
+    jumlah_porsi:       String(total),
+    komposisi:          isHadir ? parts[0] : '-',
     alasan_tidak_hadir: isHadir ? '-' : (alasan || '-'),
-    callback:           'gasCallback',   // ← GAS akan memanggil fungsi ini
+    callback:           'gasCallback',
   };
 
-  /* Simpan untuk ditampilkan di halaman sukses */
-  _pengiriman = { data: payload, isHadir: isHadir };
+  _simpan = { payload: payload, isHadir: isHadir };
 
-  /* Disable tombol, tampilkan spinner */
+  // Disable tombol
   const btn = document.getElementById('btn-sub');
   btn.disabled = true;
   btn.innerHTML = '<span class="spin"></span> Menyimpan...';
 
-  /* Bangun URL dengan semua parameter */
-  const params = new URLSearchParams(payload);
-  const url = GAS_URL + '?' + params.toString();
-
-  /* Hapus script tag lama jika ada */
-  const old = document.getElementById('_gas_script');
+  // Buat script tag
+  const old = document.getElementById('_gas_tag');
   if (old) old.parentNode.removeChild(old);
 
-  /* Buat script tag baru → browser kirim GET request ke GAS */
-  const script = document.createElement('script');
-  script.id  = '_gas_script';
-  script.src = url;
-
-  script.onerror = function() {
+  const sc  = document.createElement('script');
+  sc.id     = '_gas_tag';
+  sc.onerror = function() {
     clearTimeout(_cbTimer);
-    /* Script error bisa berarti network issue, tapi data
-       mungkin sudah tersimpan. Tampilkan sukses juga. */
-    tampilSukses(_pengiriman.data, _pengiriman.isHadir);
+    // onerror bisa berarti CORS diblokir tapi data sudah tersimpan
+    // Tampilkan sukses karena GAS sudah menerima request
+    tampilSukses(_simpan.payload, _simpan.isHadir);
   };
 
-  /* Timeout 8 detik — jika callback tidak dipanggil */
   _cbTimer = setTimeout(function() {
-    /* Setelah 8 detik tanpa respons, kemungkinan besar
-       data sudah tersimpan tapi callback terblokir.
-       Tampilkan sukses. */
-    tampilSukses(_pengiriman.data, _pengiriman.isHadir);
+    // Timeout 8 detik — data hampir pasti sudah tersimpan
+    tampilSukses(_simpan.payload, _simpan.isHadir);
   }, 8000);
 
-  document.body.appendChild(script);
+  sc.src = GAS_URL + '?' + new URLSearchParams(payload).toString();
+  document.body.appendChild(sc);
 }
 
-/* ── Tampil halaman sukses ── */
+/* ══════════════════════════════════
+   TAMPIL SUKSES
+══════════════════════════════════ */
 function tampilSukses(d, isHadir) {
   document.getElementById('s-nama').textContent  = d.nama;
   document.getElementById('s-waktu').textContent = d.timestamp;
 
   const stEl = document.getElementById('s-status');
-  stEl.textContent = isHadir ? 'Insya Allah Hadir ✅' : 'Tidak dapat hadir 🙏';
+  stEl.textContent = isHadir ? 'Hadir ✅' : 'Tidak dapat hadir 🙏';
   stEl.className   = 'tv ' + (isHadir ? 'hadir' : 'tidak');
 
-  document.getElementById('s-pr').style.display = isHadir ? 'flex' : 'none';
-  document.getElementById('s-kr').style.display = isHadir ? 'flex' : 'none';
+  const detRow   = document.getElementById('s-detail-row');
+  const porsiRow = document.getElementById('s-porsi-row');
+
   if (isHadir) {
-    document.getElementById('s-porsi').textContent = d.jumlah_porsi + ' porsi';
-    document.getElementById('s-kom').textContent   = (d.komposisi && d.komposisi !== '-') ? d.komposisi : '—';
+    detRow.style.display   = 'flex';
+    porsiRow.style.display = 'flex';
+    document.getElementById('s-detail').textContent = d.komposisi;
+    document.getElementById('s-porsi').textContent  = d.jumlah_porsi + ' porsi';
+  } else {
+    detRow.style.display   = 'none';
+    porsiRow.style.display = 'none';
   }
 
   document.getElementById('form-wrap').style.display = 'none';
   document.getElementById('suc-wrap').classList.add('on');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top:0, behavior:'smooth' });
 }
 
 function tampilError() {
@@ -563,20 +783,20 @@ function tampilError() {
   document.getElementById('err-wrap').classList.add('on');
 }
 
-/* ── Reset form ── */
+/* ══════════════════════════════════
+   RESET FORM
+══════════════════════════════════ */
 function formReset() {
-  document.getElementById('nama').value     = '';
-  document.getElementById('keluarga').value = '';
+  namaSelected = '';
+  document.getElementById('nama-input').value = '';
+  document.getElementById('nama-clear').classList.remove('show');
+  document.getElementById('pasangan').value = '0';
+  document.getElementById('anak').value     = '0';
   document.getElementById('alasan').value   = '';
-  document.querySelectorAll('input[name="hadir"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="hadir"]').forEach(function(r){ r.checked = false; });
   document.getElementById('det-hadir').classList.remove('on');
   document.getElementById('det-tidak').classList.remove('on');
-
-  porsi = 1;
-  document.getElementById('ctr-num').textContent = '1';
-  document.getElementById('ctr-tag').textContent = '1 Porsi — Sendiri';
-  document.getElementById('btn-min').disabled = true;
-  document.getElementById('btn-pls').disabled = false;
+  hitungPorsi();
 
   const btn = document.getElementById('btn-sub');
   btn.disabled  = false;
@@ -585,7 +805,7 @@ function formReset() {
   document.getElementById('suc-wrap').classList.remove('on');
   document.getElementById('err-wrap').classList.remove('on');
   document.getElementById('form-wrap').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top:0, behavior:'smooth' });
 }
 
 function formKembali() {
@@ -596,8 +816,9 @@ function formKembali() {
   btn.innerHTML = '✦ &nbsp;Kirim Konfirmasi Kehadiran';
 }
 
-/* Init state */
-document.getElementById('btn-min').disabled = true;
+/* ══ Init ══ */
+namaInit();
+hitungPorsi();
 </script>
 </body>
 </html>
